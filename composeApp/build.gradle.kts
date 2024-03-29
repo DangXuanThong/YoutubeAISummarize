@@ -1,11 +1,14 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.androidApplication)
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
@@ -25,7 +28,7 @@ kotlin {
         }
         binaries.executable()
     }
-    
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -33,13 +36,14 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
-    
+
     sourceSets {
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,12 +52,32 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.bundles.koin)
+            implementation(libs.bundles.precompose)
+            implementation(libs.generativeai)
         }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
             }
         }
+    }
+}
+
+buildkonfig {
+    packageName = "com.dangxuanthong.youtube_video_summarize"
+    objectName = "BuildConfig"
+
+    defaultConfigs {
+        buildConfigField(STRING, "GENAI_KEY", System.getenv("GENAI_KEY") ?: "")
+    }
+
+    defaultConfigs("dev") {
+        val properties = Properties().apply {
+            val file = project.rootProject.file("local.properties")
+            if (file.exists()) load(file.reader())
+        }
+        buildConfigField(STRING, "GENAI_KEY", properties.getProperty("GENAI_KEY") ?: "")
     }
 }
 
