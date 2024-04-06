@@ -5,11 +5,13 @@ agp = "8.3.1"
 buildkonfig = "0.15.1"
 
 androidx-activity-compose = "1.8.2"
-compose = "1.6.4"
+compose = "1.6.5"
 
 koin-version = "3.6.0-wasm-alpha2"
 precompose-version = "1.6.0-rc05"
 generativeai = "0.2.0-1.0.0-wasm"
+ktor = "3.2.0"
+ktor-engines = "2.3.9"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
@@ -25,12 +27,22 @@ precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "preco
 
 generativeai = { module = "dev.shreyaspatil.generativeai:generativeai-google", version.ref = "generativeai" }
 
+ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
+ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor-engines" }
+ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor-engines" }
+
 [bundles]
 koin = ["koin-core", "koin-compose"]
 precompose = ["precompose", "precompose-viewmodel", "precompose-koin"]
+ktor = ["ktor-core", "ktor-content-negotiation", "ktor-serialization-json", "ktor-logging"]
 
 [plugins]
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
+kotlinSerialization={id="org.jetbrains.kotlin.plugin.serialization",version.ref="kotlin"}

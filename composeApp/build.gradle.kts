@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.buildkonfig)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -44,6 +45,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
+            implementation(libs.ktor.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -55,10 +57,19 @@ kotlin {
             implementation(libs.bundles.koin)
             implementation(libs.bundles.precompose)
             implementation(libs.generativeai)
+            implementation(libs.bundles.ktor)
         }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation(libs.ktor.okhttp)
+                //noinspection UseTomlInstead
+                implementation("org.slf4j:slf4j-simple:2.0.12")
+            }
+        }
+        val wasmJsMain by getting {
+            dependencies {
+                implementation(libs.ktor.js)
             }
         }
     }
