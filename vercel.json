@@ -1,0 +1,4 @@
+{
+  "buildCommand": "sh gradlew wasmJsBrowserDistribution -P buildkonfig.flavor=release",
+  "installCommand": "rpm --import https://yum.corretto.aws/corretto.key && curl -Lo /etc/yum.repos.d/corretto.repo https://yum.corretto.aws/corretto.repo && dnf -y install java-21-amazon-corretto-devel"
+}
