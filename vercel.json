@@ -1,0 +1,4 @@
+{
+  "buildCommand": "if [ -d site/.kobweb/site ]; then sh gradlew kobwebExport -PkobwebReuseServer=false -PkobwebEnv=DEV -PkobwebRunLayout=KOBWEB -PkobwebBuildTarget=RELEASE -PkobwebExportLayout=STATIC -P buildkonfig.flavor=release --stacktrace fi",
+  "outputDirectory": "site/.kobweb/site"
+}

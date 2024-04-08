@@ -18,6 +18,9 @@ compose = "1.6.5"
 # ---------- Desktop ----------
 slf4j = "2.0.12"
 
+# ------------ Js ------------
+kobweb = "0.17.1"
+
 [libraries]
 # ---------- Shared ---------
 generativeai = { module = "dev.shreyaspatil.generativeai:generativeai-google", version.ref = "generativeai" }
@@ -46,6 +49,13 @@ ktor-android = { module = "io.ktor:ktor-client-android" }
 ktor-okhttp = { module = "io.ktor:ktor-client-okhttp" }
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
+# ------------ Js ------------
+kobweb-core = { module = "com.varabyte.kobweb:kobweb-core ", version.ref = "kobweb" }
+kobweb-silk = { module = "com.varabyte.kobweb:kobweb-silk", version.ref = "kobweb" }
+kobwebx-markdown = { module = "com.varabyte.kobwebx:kobwebx-markdown", version.ref = "kobweb" }
+silk-icons-fa = { module = "com.varabyte.kobwebx:silk-icons-fa", version.ref = "kobweb" }
+silk-icons-mdi = { module = "com.varabyte.kobwebx:silk-icons-mdi", version.ref = "kobweb" }
+
 [bundles]
 koin = ["koin-core", "koin-compose"]
 precompose = ["precompose", "precompose-viewmodel", "precompose-koin"]
@@ -57,9 +67,14 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kobwebLibrary = { id = "com.varabyte.kobweb.library", version.ref = "kobweb" }
 
 # ---------- Compose ----------
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 
 # ---------- Android ----------
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+
+# ------------ Js ------------
+kobwebApplication = { id = "com.varabyte.kobweb.application", version.ref = "kobweb" }
+kobwebxMarkdown = { id = "com.varabyte.kobwebx.markdown", version.ref = "kobweb" }

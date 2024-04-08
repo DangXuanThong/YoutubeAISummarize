@@ -1,4 +1,5 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import com.varabyte.kobweb.gradle.library.util.configAsKobwebLibrary
 import java.util.Properties
 
 plugins {
@@ -6,9 +7,12 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.buildkonfig)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kobwebLibrary)
 }
 
 kotlin {
+    configAsKobwebLibrary()
+
     androidTarget {
         compilations.all {
             kotlinOptions {
