@@ -1,8 +1,10 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import com.codingfeline.buildkonfig.gradle.TargetConfigDsl
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -57,6 +59,7 @@ kotlin {
             implementation(libs.bundles.koin)
             implementation(libs.bundles.precompose)
             implementation(libs.generativeai)
+//            implementation(project.dependencies.platform(libs.ktor.bom))
             implementation(libs.bundles.ktor)
         }
         val desktopMain by getting {
@@ -79,16 +82,26 @@ buildkonfig {
     packageName = "com.dangxuanthong.youtube_video_summarize"
     objectName = "BuildConfig"
 
-    defaultConfigs {
-        buildConfigField(STRING, "GENAI_KEY", System.getenv("GENAI_KEY") ?: "")
+    val localProperties = gradleLocalProperties(rootDir, providers)
+
+    fun TargetConfigDsl.buildConfigField(
+        type: FieldSpec.Type,
+        name: String,
+        key: CharSequence
+    ) {
+        val value = localProperties.getProperty(key.toString()) ?: System.getenv(key.toString())
+        val defaultValue = when (type) {
+            STRING -> ""
+            FieldSpec.Type.INT -> "0"
+            FieldSpec.Type.FLOAT -> "0"
+            FieldSpec.Type.LONG -> "0"
+            FieldSpec.Type.BOOLEAN -> "false"
+        }
+        buildConfigField(type, name, value ?: defaultValue)
     }
 
-    defaultConfigs("dev") {
-        val properties = Properties().apply {
-            val file = project.rootProject.file("local.properties")
-            if (file.exists()) load(file.reader())
-        }
-        buildConfigField(STRING, "GENAI_KEY", properties.getProperty("GENAI_KEY") ?: "")
+    defaultConfigs {
+        buildConfigField(STRING, "GENAI_KEY", key = "GENAI_KEY")
     }
 }
 

@@ -1,6 +1,7 @@
 package com.dangxuanthong.youtube_video_summarize
 
 import android.app.Application
+import com.dangxuanthong.youtube_video_summarize.di.commonModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -10,6 +11,7 @@ class MyApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MyApplication)
+            modules(commonModules)
         }
     }
 }
