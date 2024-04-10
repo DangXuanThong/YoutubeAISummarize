@@ -1,6 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import com.varabyte.kobweb.gradle.library.util.configAsKobwebLibrary
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -35,15 +35,8 @@ buildkonfig {
     exposeObjectWithName = "BuildConfig"
 
     defaultConfigs {
-        buildConfigField(STRING, "GENAI_KEY", System.getenv("GENAI_KEY") ?: "")
-    }
-
-    defaultConfigs("dev") {
-        val properties = Properties().apply {
-            val file = project.rootProject.file("local.properties")
-            if (file.exists()) load(file.reader())
-        }
-        buildConfigField(STRING, "GENAI_KEY", properties.getProperty("GENAI_KEY") ?: "")
+        val localProperties = gradleLocalProperties(rootDir, providers)
+        buildConfigField(STRING, "GENAI_KEY", localProperties.getProperty("GENAI_KEY"))
     }
 }
 
