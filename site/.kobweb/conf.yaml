@@ -1,14 +1,14 @@
 site:
-  title: "Youtube Video Summarize"
+  title: "Youtube AI Summarize"
 
 server:
   files:
     dev:
       contentRoot: "build/processedResources/js/main/public"
-      script: "build/dist/js/developmentExecutable/YoutubeVideoSummarize.js"
-      api: "build/libs/YoutubeVideoSummarize.jar"
+      script: "build/dist/js/developmentExecutable/YoutubeAISummarize.js"
+      api: "build/libs/YoutubeAISummarize.jar"
     prod:
-      script: "build/dist/js/productionExecutable/YoutubeVideoSummarize.js"
+      script: "build/dist/js/productionExecutable/YoutubeAISummarize.js"
       siteRoot: ".kobweb/site"
 
   port: 8080

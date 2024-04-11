@@ -31,7 +31,7 @@ kotlin {
 }
 
 buildkonfig {
-    packageName = "com.dangxuanthong.youtube_video_summarize"
+    packageName = "com.dangxuanthong.youtube_ai_summarize"
     exposeObjectWithName = "BuildConfig"
 
     defaultConfigs {
@@ -41,7 +41,7 @@ buildkonfig {
 }
 
 android {
-    namespace = "com.dangxuanthong.youtube_video_summarize.shared"
+    namespace = "com.dangxuanthong.youtube_ai_summarize.shared"
     compileSdk = 34
 
     compileOptions {

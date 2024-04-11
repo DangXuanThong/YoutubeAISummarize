@@ -11,7 +11,7 @@ precompose-version = "1.6.0-rc05"
 ktor = "2.3.10"
 
 # ---------- Android ----------
-agp = "8.3.1"
+agp = "8.3.2"
 androidx-activity-compose = "1.8.2"
 compose = "1.6.5"
 
@@ -52,7 +52,6 @@ slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 # ------------ Js ------------
 kobweb-core = { module = "com.varabyte.kobweb:kobweb-core ", version.ref = "kobweb" }
 kobweb-silk = { module = "com.varabyte.kobweb:kobweb-silk", version.ref = "kobweb" }
-kobwebx-markdown = { module = "com.varabyte.kobwebx:kobwebx-markdown", version.ref = "kobweb" }
 silk-icons-fa = { module = "com.varabyte.kobwebx:silk-icons-fa", version.ref = "kobweb" }
 silk-icons-mdi = { module = "com.varabyte.kobwebx:silk-icons-mdi", version.ref = "kobweb" }
 
@@ -77,4 +76,3 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 
 # ------------ Js ------------
 kobwebApplication = { id = "com.varabyte.kobweb.application", version.ref = "kobweb" }
-kobwebxMarkdown = { id = "com.varabyte.kobwebx.markdown", version.ref = "kobweb" }

@@ -54,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.dangxuanthong.youtube_video_summarize"
+    namespace = "com.dangxuanthong.youtube_ai_summarize"
     compileSdk = 34
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -62,7 +62,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.dangxuanthong.youtube_video_summarize"
+        applicationId = "com.dangxuanthong.youtube_ai_summarize"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -93,7 +93,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.dangxuanthong.youtube_video_summarize"
+            packageName = "com.dangxuanthong.youtube_ai_summarize"
             packageVersion = "1.0.0"
         }
     }

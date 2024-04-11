@@ -1,4 +1,4 @@
-rootProject.name = "YoutubeVideoSummarize"
+rootProject.name = "YoutubeAISummarize"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

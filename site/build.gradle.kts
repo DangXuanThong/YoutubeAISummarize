@@ -5,10 +5,9 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kobwebApplication)
-    alias(libs.plugins.kobwebxMarkdown)
 }
 
-group = "com.dangxuanthong.youtube_video_summarize"
+group = "com.dangxuanthong.youtube_ai_summarize"
 version = "1.0-SNAPSHOT"
 
 kobweb {
@@ -24,7 +23,7 @@ kobweb {
 }
 
 kotlin {
-    configAsKobwebApplication("YoutubeVideoSummarize")
+    configAsKobwebApplication("YoutubeAISummarize")
 
     sourceSets {
         jsMain.dependencies {
@@ -34,7 +33,6 @@ kotlin {
             implementation(libs.kobweb.core)
             implementation(libs.kobweb.silk)
             implementation(libs.silk.icons.fa)
-            implementation(libs.kobwebx.markdown)
         }
     }
 }
