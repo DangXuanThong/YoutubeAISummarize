@@ -9,9 +9,10 @@ import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.buildkonfig)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.buildkonfig)
+
+    alias(libs.plugins.androidApplication)
 }
 
 kotlin {
@@ -56,18 +57,22 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.bundles.koin)
-            implementation(libs.bundles.precompose)
-            implementation(libs.generativeai)
-//            implementation(project.dependencies.platform(libs.ktor.bom))
+
+            implementation(project.dependencies.platform(libs.ktor.bom))
             implementation(libs.bundles.ktor)
+
+            implementation(libs.bundles.precompose)
+
+            implementation(libs.generativeai)
+
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.bundles.koin)
         }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.ktor.okhttp)
-                //noinspection UseTomlInstead
-                implementation("org.slf4j:slf4j-simple:2.0.12")
+                implementation(libs.slf4j.simple)
             }
         }
         val wasmJsMain by getting {
@@ -79,7 +84,7 @@ kotlin {
 }
 
 buildkonfig {
-    packageName = "com.dangxuanthong.youtube_video_summarize"
+    packageName = "com.dangxuanthong.youtube_ai_summarize"
     objectName = "BuildConfig"
 
     val localProperties = gradleLocalProperties(rootDir, providers)
@@ -106,7 +111,7 @@ buildkonfig {
 }
 
 android {
-    namespace = "com.dangxuanthong.youtube_video_summarize"
+    namespace = "com.dangxuanthong.youtube_ai_summarize"
     compileSdk = 34
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -114,7 +119,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.dangxuanthong.youtube_video_summarize"
+        applicationId = "com.dangxuanthong.youtube_ai_summarize"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -145,7 +150,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.dangxuanthong.youtube_video_summarize"
+            packageName = "com.dangxuanthong.youtube_ai_summarize"
             packageVersion = "1.0.0"
         }
     }

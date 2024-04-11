@@ -1,25 +1,29 @@
 [versions]
+# ---------- Common ---------
 kotlin = "1.9.22"
-compose-plugin = "1.6.0"
-agp = "8.3.2"
 buildkonfig = "0.15.1"
+generativeai = "0.2.2-1.0.0-wasm"
 
+compose-plugin = "1.6.0"
+koin-bom = "3.6.0-wasm-alpha2"
+precompose-version = "1.6.0"
+ktor-bom = "3.0.0-wasm2"
+
+# ---------- Android ----------
+agp = "8.3.2"
 androidx-activity-compose = "1.8.2"
 compose = "1.6.5"
 
-koin-version = "3.6.0-wasm-alpha2"
-precompose-version = "1.6.0-rc05"
-generativeai = "0.2.0-1.0.0-wasm"
-ktor = "3.2.0"
-ktor-engines = "2.3.10"
+# ---------- Desktop ----------
+slf4j = "2.0.12"
 
 [libraries]
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-version" }
-koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-version" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-version" }
+# ---------- Common ----------
+ktor-bom = { module = "io.ktor:ktor-bom", version.ref = "ktor-bom" }
+ktor-core = { module = "io.ktor:ktor-client-core" }
+ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation" }
+ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json" }
+ktor-logging = { module = "io.ktor:ktor-client-logging" }
 
 precompose = { module = "moe.tlaster:precompose", version.ref = "precompose-version" }
 precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose-version" }
@@ -27,13 +31,22 @@ precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "preco
 
 generativeai = { module = "dev.shreyaspatil.generativeai:generativeai-google", version.ref = "generativeai" }
 
-ktor-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktor-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
-ktor-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor-engines" }
-ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor-engines" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-compose = { module = "io.insert-koin:koin-compose" }
+
+# ---------- Android ----------
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+koin-android = { module = "io.insert-koin:koin-android" }
+ktor-android = { module = "io.ktor:ktor-client-android" }
+
+# ---------- Desktop ----------
+ktor-okhttp = { module = "io.ktor:ktor-client-okhttp" }
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+
+# ---------- WasmJs ----------
+ktor-js = { module = "io.ktor:ktor-client-js" }
 
 [bundles]
 koin = ["koin-core", "koin-compose"]
@@ -41,8 +54,11 @@ precompose = ["precompose", "precompose-viewmodel", "precompose-koin"]
 ktor = ["ktor-core", "ktor-content-negotiation", "ktor-serialization-json", "ktor-logging"]
 
 [plugins]
+# ---------- Common ---------
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
-androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
-kotlinSerialization={id="org.jetbrains.kotlin.plugin.serialization",version.ref="kotlin"}
+
+# ---------- Android ----------
+androidApplication = { id = "com.android.application", version.ref = "agp" }
