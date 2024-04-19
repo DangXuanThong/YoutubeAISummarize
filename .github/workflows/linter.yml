@@ -7,9 +7,11 @@ on:
     branches: [ main, kobweb ]
   workflow_dispatch:
 
+permissions: { }
+
 jobs:
   build:
-    name: Running Linter
+    name: Run Super-Linter
     runs-on: ubuntu-latest
 
     permissions:
