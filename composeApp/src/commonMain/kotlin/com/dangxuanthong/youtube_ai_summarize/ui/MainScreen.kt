@@ -44,14 +44,15 @@ fun MainScreen(
     ) {
         Row(modifier = Modifier.padding(bottom = 8.dp)) {
             TextField(
-                value = uiState.url,
+                value = uiState.videoId,
                 onValueChange = onUrlChange,
                 singleLine = true,
                 keyboardActions = KeyboardActions(onGo = {
                     softKeyboardController?.hide()
                     onGetTranscript()
                 }),
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go)
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                modifier = Modifier.weight(1f)
             )
             Button(
                 onClick = {
@@ -60,18 +61,22 @@ fun MainScreen(
                 },
                 modifier = Modifier.padding(start = 8.dp).pointerHoverIcon(PointerIcon.Hand)
             ) {
-                Text(text = "Get Transcript", textAlign = TextAlign.Center)
+                Text(
+                    text = "Get Transcript",
+                    textAlign = TextAlign.Center,
+                    maxLines = 2
+                )
             }
         }
-        if (uiState.isLoading) LinearProgressIndicator()
+        if (uiState.status is Status.Loading) LinearProgressIndicator()
         AnimatedVisibility(
-            visible = uiState.result != null,
+            visible = uiState.status is Status.Success,
             enter = expandVertically(expandFrom = Alignment.CenterVertically),
             exit = shrinkVertically(shrinkTowards = Alignment.CenterVertically)
         ) {
-            uiState.result?.let {
+            if (uiState.status is Status.Success) {
                 Text(
-                    text = uiState.result,
+                    text = uiState.status.result,
                     modifier = Modifier.verticalScroll(rememberScrollState()),
                     textAlign = TextAlign.Justify
                 )

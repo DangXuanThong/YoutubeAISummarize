@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dangxuanthong.youtube_ai_summarize.ui.theme.AppTheme
 import moe.tlaster.precompose.PreComposeApp
+import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import org.koin.compose.koinInject
@@ -26,7 +27,7 @@ fun App() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MainScreen(
-                        uiState = vm.uiState,
+                        uiState = vm.uiState.collectAsStateWithLifecycle().value,
                         onUrlChange = { vm.onUrlChange(it) },
                         onGetTranscript = { vm.onGetTranscript() },
                         modifier = Modifier.padding(8.dp)

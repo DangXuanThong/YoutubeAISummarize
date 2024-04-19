@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -22,7 +23,6 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
-            implementation(libs.ktor.android)
         }
         commonMain.dependencies {
             implementation(projects.shared)
@@ -46,11 +46,16 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                implementation(libs.ktor.okhttp)
                 implementation(libs.slf4j.simple)
             }
         }
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspDesktop", libs.koin.ksp.compiler)
 }
 
 android {

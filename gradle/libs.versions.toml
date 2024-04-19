@@ -3,10 +3,12 @@
 kotlin = "1.9.23"
 buildkonfig = "0.15.1"
 generativeai = "0.2.0-1.0.0"
+ksp = "1.9.23-1.0.20"
 
 # ---------- Compose ----------
 compose-plugin = "1.6.2"
 koin-bom = "3.5.6"
+koin-ksp = "1.3.1"
 precompose-version = "1.6.0"
 ktor = "2.3.10"
 
@@ -30,6 +32,8 @@ kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
+koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koin-ksp" }
+koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koin-ksp" }
 
 precompose = { module = "moe.tlaster:precompose", version.ref = "precompose-version" }
 precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose-version" }
@@ -57,7 +61,7 @@ silk-icons-fa = { module = "com.varabyte.kobwebx:silk-icons-fa", version.ref = "
 #silk-icons-mdi = { module = "com.varabyte.kobwebx:silk-icons-mdi", version.ref = "kobweb" }
 
 [bundles]
-koin = ["koin-core", "koin-compose"]
+koin = ["koin-core", "koin-compose", "koin-annotations"]
 precompose = ["precompose", "precompose-viewmodel", "precompose-koin"]
 ktor = ["ktor-core", "ktor-okhttp", "ktor-content-negotiation", "ktor-serialization-json", "ktor-logging"]
 
@@ -71,6 +75,7 @@ kobwebLibrary = { id = "com.varabyte.kobweb.library", version.ref = "kobweb" }
 
 # ---------- Compose ----------
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # ---------- Android ----------
 androidApplication = { id = "com.android.application", version.ref = "agp" }

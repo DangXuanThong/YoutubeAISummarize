@@ -1,62 +1,71 @@
 package com.dangxuanthong.youtube_ai_summarize.ui
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import com.dangxuanthong.youtube_ai_summarize.network.ApiResponse
 import com.dangxuanthong.youtube_ai_summarize.network.client
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.URLProtocol
 import io.ktor.http.path
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
+import org.koin.core.annotation.Factory
 
+@Factory
 class MainViewModel : ViewModel() {
 
-    var uiState by mutableStateOf(UiState())
-        private set
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
 
     fun onUrlChange(newUrl: String) {
-        uiState = uiState.copy(url = newUrl)
+        _uiState.update { it.copy(videoId = newUrl) }
     }
 
     fun onGetTranscript() {
-        viewModelScope.launch {
-            uiState = uiState.copy(isLoading = true, error = null, result = null)
-            uiState = try {
-                val response = client.get {
-                    url {
-                        protocol = URLProtocol.HTTPS
-                        host = "youtube-transcript-api1.vercel.app"
-                        path("get-transcript")
-                        parameters.append("video_id", uiState.url)
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.update { it.copy(status = Status.Loading) }
+
+            _uiState.update { uiState ->
+                try {
+                    val response = client.get {
+                        url {
+                            protocol = URLProtocol.HTTPS
+                            host = "youtube-transcript-api1.vercel.app"
+                            path("get-transcript")
+                            parameters.append("video_id", uiState.videoId)
+                        }
+                    }.body<ApiResponse>()
+
+                    when (response) {
+                        is ApiResponse.Success ->
+                            uiState.copy(status = Status.Success(result = response.data))
+
+                        is ApiResponse.Error ->
+                            uiState.copy(status = Status.Error(message = response.message))
                     }
-                }.body<ApiResponse>()
-
-                when (response) {
-                    is ApiResponse.Success -> uiState.copy(
-                        isLoading = false,
-                        result = response.data
-                    )
-
-                    is ApiResponse.Error -> uiState.copy(
-                        isLoading = false,
-                        error = response.message
-                    )
+                } catch (e: Exception) {
+                    if (e is CancellationException) return@update uiState.copy(status = Status.Idle)
+                    e.printStackTrace()
+                    uiState.copy(status = Status.Error(e.message as String))
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                uiState.copy(isLoading = false, error = e.message)
             }
         }
     }
 }
 
 data class UiState(
-    val url: String = "",
-    val isLoading: Boolean = false,
-    val result: String? = null,
-    val error: String? = null,
+    val videoId: String = "",
+    val status: Status = Status.Idle,
 )
+
+sealed interface Status {
+    data object Idle : Status
+    data object Loading : Status
+    data class Success(val result: String) : Status
+    data class Error(val message: String) : Status
+}
