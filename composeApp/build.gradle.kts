@@ -84,16 +84,12 @@ kotlin {
 }
 
 buildkonfig {
-    packageName = "com.dangxuanthong.youtube_ai_summarize"
+    packageName = "com.dangxuanthong.youtubeaisummarize"
     objectName = "BuildConfig"
 
     val localProperties = gradleLocalProperties(rootDir, providers)
 
-    fun TargetConfigDsl.buildConfigField(
-        type: FieldSpec.Type,
-        name: String,
-        key: CharSequence
-    ) {
+    fun TargetConfigDsl.buildConfigField(type: FieldSpec.Type, name: String, key: CharSequence) {
         val value = localProperties.getProperty(key.toString()) ?: System.getenv(key.toString())
         val defaultValue = when (type) {
             STRING -> ""
@@ -111,7 +107,7 @@ buildkonfig {
 }
 
 android {
-    namespace = "com.dangxuanthong.youtube_ai_summarize"
+    namespace = "com.dangxuanthong.youtubeaisummarize"
     compileSdk = 34
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -119,7 +115,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.dangxuanthong.youtube_ai_summarize"
+        applicationId = "com.dangxuanthong.youtubeaisummarize"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -150,7 +146,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.dangxuanthong.youtube_ai_summarize"
+            packageName = "com.dangxuanthong.youtubeaisummarize"
             packageVersion = "1.0.0"
         }
     }

@@ -33,7 +33,7 @@
 #       requires all of these POSIX shell features:
 #         * functions;
 #         * expansions «$var», «${var}», «${var:-default}», «${var+SET}»,
-#           «${var#prefix}», «${var%suffix}», and «$( cmd )»;
+#           «${var#prefix}», «${var%suffix}», and «$(cmd)»;
 #         * compound commands having a testable exit status, especially «case»;
 #         * various built-in commands including «command», «set», and «ulimit».
 #
@@ -72,7 +72,7 @@ while
     APP_HOME=${app_path%"${app_path##*/}"}  # leaves a trailing /; empty if no leading path
     [ -h "$app_path" ]
 do
-    ls=$( ls -ld "$app_path" )
+    ls=$(ls -ld "$app_path")
     link=${ls#*' -> '}
     case $link in             #(
       /*)   app_path=$link ;; #(
@@ -83,7 +83,7 @@ done
 # This is normally unused
 # shellcheck disable=SC2034
 APP_BASE_NAME=${0##*/}
-APP_HOME=$( cd "${APP_HOME:-./}" && pwd -P ) || exit
+APP_HOME=$(cd "${APP_HOME:-./}" && pwd -P) || exit
 
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD=maximum
@@ -104,11 +104,11 @@ cygwin=false
 msys=false
 darwin=false
 nonstop=false
-case "$( uname )" in                #(
-  CYGWIN* )         cygwin=true  ;; #(
-  Darwin* )         darwin=true  ;; #(
-  MSYS* | MINGW* )  msys=true    ;; #(
-  NONSTOP* )        nonstop=true ;;
+case "$(uname)" in                #(
+  CYGWIN*)         cygwin=true  ;; #(
+  Darwin*)         darwin=true  ;; #(
+  MSYS* | MINGW*)  msys=true    ;; #(
+  NONSTOP*)        nonstop=true ;;
 esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
@@ -145,7 +145,7 @@ if ! "$cygwin" && ! "$darwin" && ! "$nonstop" ; then
       max*)
         # In POSIX sh, ulimit -H is undefined. That's why the result is checked to see if it worked.
         # shellcheck disable=SC3045
-        MAX_FD=$( ulimit -H -n ) ||
+        MAX_FD=$(ulimit -H -n) ||
             warn "Could not query maximum file descriptor limit"
     esac
     case $MAX_FD in  #(
@@ -168,10 +168,10 @@ fi
 
 # For Cygwin or MSYS, switch paths to Windows format before running java
 if "$cygwin" || "$msys" ; then
-    APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
-    CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
+    APP_HOME=$(cygpath --path --mixed "$APP_HOME")
+    CLASSPATH=$(cygpath --path --mixed "$CLASSPATH")
 
-    JAVACMD=$( cygpath --unix "$JAVACMD" )
+    JAVACMD=$(cygpath --unix "$JAVACMD")
 
     # Now convert the arguments - kludge to limit ourselves to /bin/sh
     for arg do
@@ -183,7 +183,7 @@ if "$cygwin" || "$msys" ; then
               *)    false ;;
             esac
         then
-            arg=$( cygpath --path --ignore --mixed "$arg" )
+            arg=$(cygpath --path --ignore --mixed "$arg")
         fi
         # Roll the args list around exactly as many times as the number of
         # args, so each arg winds up back in the position where it started, but
@@ -225,7 +225,7 @@ fi
 #
 # In Bash we could simply go:
 #
-#   readarray ARGS < <( xargs -n1 <<<"$var" ) &&
+#   readarray ARGS < <(xargs -n1 <<<"$var") &&
 #   set -- "${ARGS[@]}" "$@"
 #
 # but POSIX shell has neither arrays nor command substitution, so instead we
