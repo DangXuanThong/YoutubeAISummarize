@@ -1,4 +1,4 @@
-package com.dangxuanthong.youtube_ai_summarize
+package com.dangxuanthong.youtubeaisummarize
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight

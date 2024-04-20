@@ -1,4 +1,4 @@
-package com.dangxuanthong.youtube_ai_summarize.ui
+package com.dangxuanthong.youtubeaisummarize.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -33,7 +33,7 @@ fun MainScreen(
     uiState: UiState,
     onUrlChange: (String) -> Unit,
     onGetTranscript: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val softKeyboardController = LocalSoftwareKeyboardController.current
 

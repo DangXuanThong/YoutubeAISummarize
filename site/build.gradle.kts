@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kobwebApplication)
 }
 
-group = "com.dangxuanthong.youtube_ai_summarize"
+group = "com.dangxuanthong.youtubeaisummarize"
 version = "1.0-SNAPSHOT"
 
 kobweb {

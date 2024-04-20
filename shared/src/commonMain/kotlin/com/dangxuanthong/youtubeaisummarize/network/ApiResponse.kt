@@ -1,4 +1,4 @@
-package com.dangxuanthong.youtube_ai_summarize.network
+package com.dangxuanthong.youtubeaisummarize.network
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

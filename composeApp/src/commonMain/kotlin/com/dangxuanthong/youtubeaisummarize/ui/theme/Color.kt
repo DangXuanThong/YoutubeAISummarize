@@ -1,4 +1,4 @@
-package com.dangxuanthong.youtube_ai_summarize.ui.theme
+package com.dangxuanthong.youtubeaisummarize.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

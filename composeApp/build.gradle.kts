@@ -59,7 +59,7 @@ dependencies {
 }
 
 android {
-    namespace = "com.dangxuanthong.youtube_ai_summarize"
+    namespace = "com.dangxuanthong.youtubeaisummarize"
     compileSdk = 34
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -67,7 +67,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.dangxuanthong.youtube_ai_summarize"
+        applicationId = "com.dangxuanthong.youtubeaisummarize"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -98,7 +98,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.dangxuanthong.youtube_ai_summarize"
+            packageName = "com.dangxuanthong.youtubeaisummarize"
             packageVersion = "1.0.0"
         }
     }

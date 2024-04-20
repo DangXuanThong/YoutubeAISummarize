@@ -1,4 +1,4 @@
-package com.dangxuanthong.youtube_ai_summarize.ui
+package com.dangxuanthong.youtubeaisummarize.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -7,7 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dangxuanthong.youtube_ai_summarize.ui.theme.AppTheme
+import com.dangxuanthong.youtubeaisummarize.ui.theme.AppTheme
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import org.jetbrains.compose.ui.tooling.preview.Preview

@@ -1,4 +1,4 @@
-package com.dangxuanthong.youtube_ai_summarize.network
+package com.dangxuanthong.youtubeaisummarize.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -12,10 +12,12 @@ import kotlinx.serialization.json.Json
 
 val client = HttpClient(OkHttp) {
     install(ContentNegotiation) {
-        json(Json {
-            prettyPrint = true
-            classDiscriminator = "result"
-        })
+        json(
+            Json {
+                prettyPrint = true
+                classDiscriminator = "result"
+            }
+        )
     }
     install(Logging) {
         logger = Logger.DEFAULT

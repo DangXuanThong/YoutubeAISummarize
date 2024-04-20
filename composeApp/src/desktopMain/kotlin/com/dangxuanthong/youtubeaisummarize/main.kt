@@ -1,9 +1,11 @@
-package com.dangxuanthong.youtube_ai_summarize
+@file:Suppress("ktlint:standard:filename")
+
+package com.dangxuanthong.youtubeaisummarize
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import com.dangxuanthong.youtube_ai_summarize.di.AppModule
-import com.dangxuanthong.youtube_ai_summarize.ui.App
+import com.dangxuanthong.youtubeaisummarize.di.AppModule
+import com.dangxuanthong.youtubeaisummarize.ui.App
 import org.koin.core.context.startKoin
 import org.koin.ksp.generated.module
 

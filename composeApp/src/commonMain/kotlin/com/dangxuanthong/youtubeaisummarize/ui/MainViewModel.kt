@@ -1,7 +1,7 @@
-package com.dangxuanthong.youtube_ai_summarize.ui
+package com.dangxuanthong.youtubeaisummarize.ui
 
-import com.dangxuanthong.youtube_ai_summarize.network.ApiResponse
-import com.dangxuanthong.youtube_ai_summarize.network.client
+import com.dangxuanthong.youtubeaisummarize.network.ApiResponse
+import com.dangxuanthong.youtubeaisummarize.network.client
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.http.URLProtocol
@@ -60,7 +60,7 @@ class MainViewModel : ViewModel() {
 
 data class UiState(
     val videoId: String = "",
-    val status: Status = Status.Idle,
+    val status: Status = Status.Idle
 )
 
 sealed interface Status {
