@@ -26,6 +26,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.serialization)
+            implementation(libs.generativeai)
         }
     }
 }

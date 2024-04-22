@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Youtube AI Summarize</string>
+    <string name="summarize">Summarize using AI</string>
+</resources>

@@ -1,11 +1,10 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hydraulicConveyor)
 }
 
 kotlin {
@@ -56,6 +55,12 @@ dependencies {
     add("kspCommonMainMetadata", libs.koin.ksp.compiler)
     add("kspAndroid", libs.koin.ksp.compiler)
     add("kspDesktop", libs.koin.ksp.compiler)
+
+    // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
+    windowsAmd64(compose.desktop.windows_x64)
+//    macAmd64(compose.desktop.macos_x64)
+//    macAarch64(compose.desktop.macos_arm64)
+    linuxAmd64(compose.desktop.linux_x64)
 }
 
 android {
@@ -95,11 +100,18 @@ android {
 compose.desktop {
     application {
         mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.dangxuanthong.youtubeaisummarize"
-            packageVersion = "1.0.0"
-        }
     }
 }
+
+// For Conveyor to export desktop apps
+group = "com.dangxuanthong"
+version = "1.0"
+
+// region Work around temporary Compose bugs.
+configurations.all {
+    attributes {
+        // https://github.com/JetBrains/compose-jb/issues/1404#issuecomment-1146894731
+        attribute(Attribute.of("ui", String::class.java), "awt")
+    }
+}
+// endregion

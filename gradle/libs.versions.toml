@@ -2,7 +2,7 @@
 # ---------- Shared ---------
 kotlin = "1.9.23"
 buildkonfig = "0.15.1"
-generativeai = "0.2.0-1.0.0"
+generativeai = "0.2.2-1.0.0"
 ksp = "1.9.23-1.0.20"
 
 # ---------- Compose ----------
@@ -14,11 +14,12 @@ ktor = "2.3.10"
 
 # ---------- Android ----------
 agp = "8.3.2"
-androidx-activity-compose = "1.8.2"
-compose = "1.6.5"
+androidx-activity-compose = "1.9.0"
+compose = "1.6.6"
 
 # ---------- Desktop ----------
 slf4j = "2.0.12"
+conveyor = "1.8"
 
 # ------------ Js ------------
 kobweb = "0.17.3"
@@ -79,6 +80,9 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # ---------- Android ----------
 androidApplication = { id = "com.android.application", version.ref = "agp" }
+
+# ---------- Desktop ----------
+hydraulicConveyor = { id = "dev.hydraulic.conveyor", version.ref = "conveyor" }
 
 # ------------ Js ------------
 kobwebApplication = { id = "com.varabyte.kobweb.application", version.ref = "kobweb" }
