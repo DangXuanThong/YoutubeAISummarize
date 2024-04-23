@@ -1,11 +1,8 @@
 package com.dangxuanthong.youtubeaisummarize.ui
 
+import com.dangxuanthong.youtubeaisummarize.data.AIRepository
+import com.dangxuanthong.youtubeaisummarize.data.NetworkRepository
 import com.dangxuanthong.youtubeaisummarize.network.ApiResponse
-import com.dangxuanthong.youtubeaisummarize.network.client
-import io.ktor.client.call.body
-import io.ktor.client.request.get
-import io.ktor.http.URLProtocol
-import io.ktor.http.path
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,42 +14,56 @@ import moe.tlaster.precompose.viewmodel.viewModelScope
 import org.koin.core.annotation.Factory
 
 @Factory
-class MainViewModel : ViewModel() {
+class MainViewModel(
+    private val networkRepository: NetworkRepository,
+    private val aiRepository: AIRepository
+) : ViewModel() {
 
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
-    fun onUrlChange(newUrl: String) {
-        _uiState.update { it.copy(videoId = newUrl) }
+    fun onVideoIdChange(newVideoId: String) {
+        _uiState.update { it.copy(videoId = newVideoId) }
     }
 
-    fun onGetTranscript() {
+    fun onSummarize() {
+        // To prevent 2 requests run simultaneously
+        if (uiState.value.status is Status.Loading) return
+
         viewModelScope.launch(Dispatchers.IO) {
-            _uiState.update { it.copy(status = Status.Loading) }
+            // Getting transcript
+            _uiState.update { it.copy(status = Status.Loading.Transcript(it.videoId)) }
+            getTranscript()
+            // If there is an error in getting transcription, abort the process
+            if (uiState.value.status is Status.Error) return@launch
 
-            _uiState.update { uiState ->
-                try {
-                    val response = client.get {
-                        url {
-                            protocol = URLProtocol.HTTPS
-                            host = "youtube-transcript-api1.vercel.app"
-                            path("get-transcript")
-                            parameters.append("video_id", uiState.videoId)
-                        }
-                    }.body<ApiResponse>()
-
-                    when (response) {
-                        is ApiResponse.Success ->
-                            uiState.copy(status = Status.Success(result = response.data))
-
-                        is ApiResponse.Error ->
-                            uiState.copy(status = Status.Error(message = response.message))
-                    }
-                } catch (e: Exception) {
-                    if (e is CancellationException) return@update uiState.copy(status = Status.Idle)
-                    e.printStackTrace()
-                    uiState.copy(status = Status.Error(e.message as String))
+            // Using AI to summarize the transcript of video
+            val aiResponse = aiRepository.summarize(
+                (uiState.value.status as Status.Loading.Summarize).transcription
+            )
+            _uiState.update {
+                when (aiResponse) {
+                    is ApiResponse.Success -> it.copy(status = Status.Success(aiResponse.data))
+                    is ApiResponse.Error -> it.copy(status = Status.Error(aiResponse.message))
                 }
+            }
+        }
+    }
+
+    private suspend fun getTranscript() {
+        _uiState.update {
+            try {
+                val response = networkRepository.getTranscriptForVideo(it.videoId)
+                when (response) {
+                    is ApiResponse.Success ->
+                        it.copy(status = Status.Loading.Summarize(response.data))
+
+                    is ApiResponse.Error -> it.copy(status = Status.Error(response.message))
+                }
+            } catch (e: Exception) {
+                if (e is CancellationException) return@update it.copy(status = Status.Idle)
+                e.printStackTrace()
+                it.copy(status = Status.Error(e.message as String))
             }
         }
     }
@@ -65,7 +76,12 @@ data class UiState(
 
 sealed interface Status {
     data object Idle : Status
-    data object Loading : Status
-    data class Success(val result: String) : Status
     data class Error(val message: String) : Status
+    data class Success(val data: String) : Status
+
+    // To display different loading status accordingly
+    interface Loading : Status {
+        data class Transcript(val videoId: String) : Loading
+        data class Summarize(val transcription: String) : Loading
+    }
 }

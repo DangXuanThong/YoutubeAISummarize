@@ -1,3 +1,5 @@
+@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
+
 package com.dangxuanthong.youtubeaisummarize.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,9 +12,9 @@ import androidx.compose.ui.unit.dp
 import com.dangxuanthong.youtubeaisummarize.ui.theme.AppTheme
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
+import moe.tlaster.precompose.koin.koinViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
-import org.koin.compose.koinInject
 
 @Composable
 @Preview
@@ -20,7 +22,7 @@ fun App() {
     PreComposeApp {
         KoinContext {
             AppTheme {
-                val vm: MainViewModel = koinInject()
+                val vm: MainViewModel = koinViewModel()
 
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -28,9 +30,9 @@ fun App() {
                 ) {
                     MainScreen(
                         uiState = vm.uiState.collectAsStateWithLifecycle().value,
-                        onUrlChange = { vm.onUrlChange(it) },
-                        onGetTranscript = { vm.onGetTranscript() },
-                        modifier = Modifier.padding(8.dp)
+                        onVideoIdChange = { vm.onVideoIdChange(it) },
+                        onSummarize = { vm.onSummarize() },
+                        modifier = Modifier.padding(horizontal = 8.dp)
                     )
                 }
             }
