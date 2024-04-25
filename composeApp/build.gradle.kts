@@ -32,6 +32,7 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.landscapist.coil)
 
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.bundles.koin)
@@ -58,6 +59,7 @@ dependencies {
     add("kspDesktop", libs.koin.ksp.compiler)
 
     // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
+    // **Will support iOS and macOS in the future**
     windowsAmd64(compose.desktop.windows_x64)
 //    macAmd64(compose.desktop.macos_x64)
 //    macAarch64(compose.desktop.macos_arm64)

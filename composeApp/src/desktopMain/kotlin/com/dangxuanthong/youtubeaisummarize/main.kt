@@ -2,6 +2,9 @@
 
 package com.dangxuanthong.youtubeaisummarize
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.dangxuanthong.composeapp.generated.resources.Res
@@ -23,6 +26,6 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = stringResource(Res.string.app_name)
     ) {
-        App()
+        App(Modifier.padding(16.dp))
     }
 }

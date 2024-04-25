@@ -38,6 +38,7 @@ buildkonfig {
     defaultConfigs {
         val localProperties = gradleLocalProperties(rootDir, providers)
         buildConfigField(STRING, "GENAI_KEY", localProperties.getProperty("GENAI_KEY"))
+        buildConfigField(STRING, "YT_API_KEY", localProperties.getProperty("YT_API_KEY"))
     }
 }
 
