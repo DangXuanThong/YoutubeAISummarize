@@ -59,7 +59,7 @@ dependencies {
     add("kspDesktop", libs.koin.ksp.compiler)
 
     // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
-    // **Will support iOS and macOS in the future**
+    // **Will support macOS in the future**
     windowsAmd64(compose.desktop.windows_x64)
 //    macAmd64(compose.desktop.macos_x64)
 //    macAarch64(compose.desktop.macos_arm64)
@@ -79,7 +79,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0preview1"
     }
     packaging {
         resources {
@@ -89,6 +89,11 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -108,7 +113,7 @@ compose.desktop {
 
 // For Conveyor to export desktop apps
 group = "com.dangxuanthong"
-version = "1.0"
+version = "1.0preview1"
 
 // region Work around temporary Compose bugs.
 configurations.all {
