@@ -1,5 +1,3 @@
-@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
-
 package com.dangxuanthong.youtubeaisummarize.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,11 +9,9 @@ import com.dangxuanthong.youtubeaisummarize.ui.theme.AppTheme
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.koin.koinViewModel
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 
 @Composable
-@Preview
 fun App(modifier: Modifier = Modifier) {
     PreComposeApp {
         KoinContext {

@@ -18,7 +18,8 @@ class MainViewModel(
     private val aiRepository: AIRepository
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState("7JRfZOkoKnY"))
+    private val _uiState: MutableStateFlow<UiState> =
+        MutableStateFlow(UiState("SRkdCkG9vJE"))
     val uiState = _uiState.asStateFlow()
 
     fun onVideoIdChange(newVideoId: String) {
@@ -62,16 +63,14 @@ class MainViewModel(
     }
 
     private suspend fun getTranscript(videoId: String, language: String): Status {
-        val transcript = networkRepository.getTranscriptForVideo(videoId, language)
-        return when (transcript) {
+        return when (val transcript = networkRepository.getTranscriptForVideo(videoId, language)) {
             is ApiResponse.Success -> Status.Loading.Summarize(transcript.data)
             is ApiResponse.Error -> Status.Error(transcript.message)
         }
     }
 
     private suspend fun summarize(transcript: String): Status {
-        val aiResponse = aiRepository.summarize(transcript)
-        return when (aiResponse) {
+        return when (val aiResponse = aiRepository.summarize(transcript)) {
             is ApiResponse.Success -> Status.Success(aiResponse.data)
             is ApiResponse.Error -> Status.Error(aiResponse.message)
         }

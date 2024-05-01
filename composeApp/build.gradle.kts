@@ -1,18 +1,22 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.ksp)
+
+    alias(libs.plugins.androidApplication)
     alias(libs.plugins.hydraulicConveyor)
 }
 
 kotlin {
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
         }
     }
 
@@ -33,16 +37,15 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.landscapist.coil)
-
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.bundles.koin)
-
             implementation(libs.bundles.precompose)
-
-            implementation(libs.generativeai)
 
             implementation(project.dependencies.platform(libs.ktor.bom))
             implementation(libs.bundles.ktor)
+
+            implementation(libs.generativeai)
+
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.bundles.koin)
         }
         val desktopMain by getting {
             dependencies {
@@ -58,12 +61,12 @@ dependencies {
     add("kspAndroid", libs.koin.ksp.compiler)
     add("kspDesktop", libs.koin.ksp.compiler)
 
-    // Use the configurations created by the Conveyor plugin to tell Gradle/Conveyor where to find the artifacts for each platform.
+    // Use the configurations created by the Conveyor plugin
+    // to tell Gradle/Conveyor where to find the artifacts for each platform.
     // **Will support macOS in the future**
     windowsAmd64(compose.desktop.windows_x64)
 //    macAmd64(compose.desktop.macos_x64)
 //    macAarch64(compose.desktop.macos_arm64)
-    linuxAmd64(compose.desktop.linux_x64)
 }
 
 android {
@@ -97,8 +100,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
@@ -111,7 +114,7 @@ compose.desktop {
     }
 }
 
-// For Conveyor to export desktop apps
+// Needed by Conveyor to export desktop apps
 group = "com.dangxuanthong"
 version = "1.0preview1"
 
