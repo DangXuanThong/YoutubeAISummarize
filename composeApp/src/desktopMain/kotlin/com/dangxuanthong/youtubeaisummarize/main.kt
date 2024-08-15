@@ -8,15 +8,17 @@ import com.dangxuanthong.youtubeaisummarize.di.commonModules
 import com.dangxuanthong.youtubeaisummarize.ui.App
 import org.koin.core.context.startKoin
 
-fun main() = application {
+fun main() {
     startKoin {
         modules(commonModules)
     }
 
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "Youtube Video Summarize"
-    ) {
-        App()
+    application {
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = "Youtube Video Summarize"
+        ) {
+            App()
+        }
     }
 }
