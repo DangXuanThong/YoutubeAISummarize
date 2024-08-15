@@ -3,12 +3,14 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import com.codingfeline.buildkonfig.gradle.TargetConfigDsl
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.buildkonfig)
 
@@ -35,8 +37,8 @@ kotlin {
 
     androidTarget {
         compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
+            compilerOptions.configure {
+                jvmTarget.set(JvmTarget.JVM_11)
             }
         }
     }
@@ -61,7 +63,8 @@ kotlin {
             implementation(project.dependencies.platform(libs.ktor.bom))
             implementation(libs.bundles.ktor)
 
-            implementation(libs.bundles.precompose)
+            implementation(libs.lifecycle.viewmodel.compose)
+            implementation(libs.navigation.compose)
 
             implementation(libs.generativeai)
 
@@ -117,7 +120,7 @@ android {
     defaultConfig {
         applicationId = "com.dangxuanthong.youtubeaisummarize"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
     }
@@ -150,8 +153,4 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }
